@@ -24,19 +24,25 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        // Lấy giá trị của header có key là Authorization
-        String header = request.getHeader("Authorization");
-        if (header.startsWith("Bearer")){
-            String token = header.substring(7);
-            // Giải mã token
-            Claims claims = jwtHelper.decodeToken(token);
 
-            if (claims!=null){
-                // Tạo chứng thực cho security
-                SecurityContext context = SecurityContextHolder.getContext();
-                UsernamePasswordAuthenticationToken user = new UsernamePasswordAuthenticationToken("","",new ArrayList<>());
-                context.setAuthentication(user);
+
+        try {
+            // Lấy giá trị của header có key là Authorization
+            String header = request.getHeader("Authorization");
+            if (header.startsWith("Bearer")){
+                String token = header.substring(7);
+                // Giải mã token
+                Claims claims = jwtHelper.decodeToken(token);
+
+                if (claims!=null){
+                    // Tạo chứng thực cho security
+                    SecurityContext context = SecurityContextHolder.getContext();
+                    UsernamePasswordAuthenticationToken user = new UsernamePasswordAuthenticationToken("","",new ArrayList<>());
+                    context.setAuthentication(user);
+                }
             }
+        }catch (Exception e){
+
         }
 
         filterChain.doFilter(request,response);
