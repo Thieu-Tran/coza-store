@@ -44,7 +44,7 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
-                    .antMatchers("/signin","/signup").permitAll()
+                    .antMatchers("/signin","/signup","/category","/product/**","/**").permitAll()
                     .antMatchers("/admin").hasRole("ADMIN")
                     .anyRequest().authenticated()
                 .and()
