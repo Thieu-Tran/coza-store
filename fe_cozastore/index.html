@@ -80,14 +80,14 @@
 			<div class="wrap-menu-desktop">
 				<nav class="limiter-menu-desktop container">
 
-					<a href="#" class="logo">
+					<a href="index.html" class="logo">
 						<img src="images/icons/logo-01.png" alt="IMG-LOGO">
 					</a>
 
 					<div class="menu-desktop">
 						<ul class="main-menu">
 							<li class="active-menu">
-								<a href="index-2.html">Home</a>
+								<a href="index.html">Home</a>
 								<ul class="sub-menu">
 									<li><a href="index-2.html">Homepage 1</a></li>
 									<li><a href="home-02.html">Homepage 2</a></li>
@@ -798,11 +798,9 @@
 					<img src="images/icons/icon-close.png" alt="CLOSE">
 				</button>
 				<div class="row">
-					<div class="col-md-6 col-lg-7 p-b-30" style=" max-height: 80vh;overflow-y:scroll;">
-						<div class="p-l-25 p-r-25 p-lr-0-lg">
-							<div id="image-detail" class="bg-light">
+					<div class="col-md-6 col-lg-7 p-b-30">
+						<div class="p-l-25 p-r-25 p-lr-0-lg" id="slick-content">
 
-							</div>
 							<!-- <div class="wrap-slick3 flex-sb flex-w">
 
 
@@ -844,7 +842,7 @@
 
 						</div>
 					</div>
-					<div class="col-md-6 col-lg-5 p-b-30 w-100">
+					<div class="col-md-6 col-lg-5 p-b-30">
 						<div class="p-r-50 p-t-5 p-lr-0-lg">
 
 							<div id="product-information">
@@ -908,11 +906,11 @@
 											</div>
 										</div>
 										<div id="addToCart">
-											<button
+											<!-- <button
 												class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
 												onclick="addToCart()">
 												Add to cart
-											</button>
+											</button> -->
 										</div>
 									</div>
 								</div>
@@ -994,30 +992,30 @@
 
 	<script src="vendor/sweetalert/sweetalert.min.js"></script>
 	<script>
-		// $('.js-addwish-b2').on('click', function (e) {
-		// 	e.preventDefault();
-		// });
+		$('.js-addwish-b2').on('click', function (e) {
+			e.preventDefault();
+		});
 
-		// $('.js-addwish-b2').each(function () {
-		// 	var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
-		// 	$(this).on('click', function () {
-		// 		swal(nameProduct, "is added to wishlist !", "success");
+		$('.js-addwish-b2').each(function () {
+			var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
+			$(this).on('click', function () {
+				swal(nameProduct, "is added to wishlist !", "success");
 
-		// 		$(this).addClass('js-addedwish-b2');
-		// 		$(this).off('click');
-		// 	});
-		// });
+				$(this).addClass('js-addedwish-b2');
+				$(this).off('click');
+			});
+		});
 
-		// $('.js-addwish-detail').each(function () {
-		// 	var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
+		$('.js-addwish-detail').each(function () {
+			var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
 
-		// 	$(this).on('click', function () {
-		// 		swal(nameProduct, "is added to wishlist !", "success");
+			$(this).on('click', function () {
+				swal(nameProduct, "is added to wishlist !", "success");
 
-		// 		$(this).addClass('js-addedwish-detail');
-		// 		$(this).off('click');
-		// 	});
-		// });
+				$(this).addClass('js-addedwish-detail');
+				$(this).off('click');
+			});
+		});
 
 		/*---------------------------------------------*/
 
@@ -1056,20 +1054,6 @@
 
 		gtag('config', 'UA-23581568-13');
 	</script>
-
-	<!-- create-->
-
-	<script>
-
-		$('#image-detail').slick({
-			infinite: true,
-			slidesToShow: 3,
-			slidesToScroll: 3
-		});
-
-	</script>
-
-	<!-- create-->
 
 
 	<script defer
