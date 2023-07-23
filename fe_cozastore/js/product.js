@@ -1,51 +1,7 @@
 const baseURL = "http://localhost:8080"
+let token = localStorage.getItem("token")
 
 $(document).ready(function () {
-    let token = localStorage.getItem("token")
-
-    // getAllBanner -------------------------------------------------------------------------------------
-    $.ajax({
-        url: baseURL + "/banner",
-        method: "get",
-        headers: {
-            Authorization: "Bearer " + token,
-        }
-    }).done(function (result) {
-        let data = result.data
-        let banner = ''
-
-        for (let index = 0; index < data.length; index++) {
-            let item = data[index]
-            banner += `
-            <div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
-        			<div class="block1 wrap-pic-w">
-        				<img src="images/${item.image}" style="height:max-content;" alt="IMG-BANNER">
-        				<a href="product.html"
-        					class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
-        					<div class="block1-txt-child1 flex-col-l">
-        						<span class="block1-name ltext-102 trans-04 p-b-8">
-                                    ${item.name}
-        						</span>
-        						<span class="block1-info stext-102 trans-04">
-                                    ${item.content}
-        						</span>
-        					</div>
-        					<div class="block1-txt-child2 p-b-4 trans-05">
-        						<div class="block1-link stext-101 cl0 trans-09">
-        							Shop Now
-        						</div>
-        					</div>
-        				</a>
-        			</div>
-        		</div>
-            `
-        }
-        document.getElementById("banner-list").innerHTML = banner
-
-    })
-    // getAllBanner -------------------------------------------------------------------------------------
-
-
     // Lấy danh sách category ---------------------------------------------------------------------------
     $.ajax({
         url: baseURL + "/category",
@@ -72,15 +28,15 @@ $(document).ready(function () {
         }
         document.getElementById("category").innerHTML = categoryContent
 
-    // load lại script chuyển category
         var isotopeButton = $('.filter-tope-group button');
 
-        $(isotopeButton).each(function(){
-            $(this).on('click', function(){
-                for(var i=0; i<isotopeButton.length; i++) {
+        // load lại script chuyển category
+        $(isotopeButton).each(function () {
+            $(this).on('click', function () {
+                for (var i = 0; i < isotopeButton.length; i++) {
                     $(isotopeButton[i]).removeClass('how-active1');
                 }
-    
+
                 $(this).addClass('how-active1');
             });
         });
@@ -200,7 +156,6 @@ $(document).ready(function () {
     window.getAllProduct = getAllProduct
     // getAllProduct --------------------------------------------------------------------------------------
 
-
     // getProductById ---------------------------------------------------------------------------------
     let productDetail = (id) => {
         $.ajax({
@@ -281,7 +236,6 @@ $(document).ready(function () {
 
 
     // getAllSize -------------------------------------------------------------------------------------
-
     let getAllSize = () => {
         $.ajax({
             url: baseURL + "/size",
@@ -293,23 +247,19 @@ $(document).ready(function () {
             let data = result.data
             let productSize = `<option>Choose an option</option>`
 
-
             for (let index = 0; index < data.length; index++) {
                 let item = data[index]
 
                 productSize += `<option>Size ${item.name}</option>`
-
             }
             document.getElementById("product-size").innerHTML = productSize
         })
     }
     window.getAllSize = getAllSize
-
     // getAllSize -------------------------------------------------------------------------------------
 
 
     // getAllColor -------------------------------------------------------------------------------------
-
     let getAllColor = () => {
         $.ajax({
             url: baseURL + "/color",
@@ -331,7 +281,6 @@ $(document).ready(function () {
         })
     }
     window.getAllColor = getAllColor
-
     // getAllColor -------------------------------------------------------------------------------------
 
     let addToCart = (id) => {
@@ -372,24 +321,18 @@ $(document).ready(function () {
         });
 
         $('.js-addwish-detail').each(function () {
-			var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
+            var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
 
-			$(this).on('click', function () {
-				swal(nameProduct, "is added to wishlist !", "success");
+            $(this).on('click', function () {
+                swal(nameProduct, "is added to wishlist !", "success");
 
-				$(this).addClass('js-addedwish-detail');
-				$(this).off('click');
-			});
-		});
+                $(this).addClass('js-addedwish-detail');
+                $(this).off('click');
+            });
+        });
     }
     window.handleFavorite = handleFavorite
     // handleFavorite ---------------------------------------------------------------------------------
 
-    // test -------------------------------------------------------------------------------------------
-
-
-
-    // test -------------------------------------------------------------------------------------------
 
 })
-

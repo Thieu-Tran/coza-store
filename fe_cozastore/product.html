@@ -34,6 +34,8 @@
 
 	<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 
@@ -71,14 +73,14 @@
 			<div class="wrap-menu-desktop how-shadow1">
 				<nav class="limiter-menu-desktop container">
 
-					<a href="#" class="logo">
+					<a href="index.html" class="logo">
 						<img src="images/icons/logo-01.png" alt="IMG-LOGO">
 					</a>
 
 					<div class="menu-desktop">
 						<ul class="main-menu">
 							<li>
-								<a href="index-2.html">Home</a>
+								<a href="index.html">Home</a>
 								<ul class="sub-menu">
 									<li><a href="index-2.html">Homepage 1</a></li>
 									<li><a href="home-02.html">Homepage 2</a></li>
@@ -291,8 +293,8 @@
 	<div class="bg0 m-t-23 p-b-140">
 		<div class="container">
 			<div class="flex-w flex-sb-m p-b-52">
-				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
+				<div class="flex-w flex-l-m filter-tope-group m-tb-10" id="category">
+					<!-- <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
 						All Products
 					</button>
 					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
@@ -309,7 +311,7 @@
 					</button>
 					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".watches">
 						Watches
-					</button>
+					</button> -->
 				</div>
 				<div class="flex-w flex-c-m m-tb-10">
 					<div
@@ -496,8 +498,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="row isotope-grid">
-				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+			<div class="row isotope-grid" id="product-list">
+				<!-- <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
 
 					<div class="block2">
 						<div class="block2-pic hov-img0">
@@ -976,7 +978,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 
 			<div class="flex-c-m flex-w w-full p-t-45">
@@ -1127,7 +1129,7 @@
 				</button>
 				<div class="row">
 					<div class="col-md-6 col-lg-7 p-b-30">
-						<div class="p-l-25 p-r-30 p-lr-0-lg">
+						<div class="p-l-25 p-r-30 p-lr-0-lg" id="slick-content">
 							<div class="wrap-slick3 flex-sb flex-w">
 								<div class="wrap-slick3-dots"></div>
 								<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
@@ -1165,16 +1167,19 @@
 					</div>
 					<div class="col-md-6 col-lg-5 p-b-30">
 						<div class="p-r-50 p-t-5 p-lr-0-lg">
-							<h4 class="mtext-105 cl2 js-name-detail p-b-14">
-								Lightweight Jacket
-							</h4>
-							<span class="mtext-106 cl2">
-								$58.79
-							</span>
-							<p class="stext-102 cl3 p-t-23">
-								Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat
-								ornare feugiat.
-							</p>
+							<div id="product-information">
+								<!-- <h4 class="mtext-105 cl2 js-name-detail p-b-14">
+									Lightweight Jacket
+								</h4>
+								<span class="mtext-106 cl2">
+									$58.79
+								</span>
+								<p class="stext-102 cl3 p-t-23">
+									Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris
+									consequat
+									ornare feugiat.
+								</p> -->
+							</div>
 
 							<div class="p-t-33">
 								<div class="flex-w flex-r-m p-b-10">
@@ -1183,12 +1188,12 @@
 									</div>
 									<div class="size-204 respon6-next">
 										<div class="rs1-select2 bor8 bg0">
-											<select class="js-select2" name="time">
-												<option>Choose an option</option>
+											<select class="js-select2 w-100" name="time" id="product-size">
+												<!-- <option>Choose an option</option>
 												<option>Size S</option>
 												<option>Size M</option>
 												<option>Size L</option>
-												<option>Size XL</option>
+												<option>Size XL</option> -->
 											</select>
 											<div class="dropDownSelect2"></div>
 										</div>
@@ -1200,12 +1205,12 @@
 									</div>
 									<div class="size-204 respon6-next">
 										<div class="rs1-select2 bor8 bg0">
-											<select class="js-select2" name="time">
-												<option>Choose an option</option>
+											<select class="js-select2 w-100" name="time" id="product-color">
+												<!-- <option>Choose an option</option>
 												<option>Red</option>
 												<option>Blue</option>
 												<option>White</option>
-												<option>Grey</option>
+												<option>Grey</option> -->
 											</select>
 											<div class="dropDownSelect2"></div>
 										</div>
@@ -1223,10 +1228,12 @@
 												<i class="fs-16 zmdi zmdi-plus"></i>
 											</div>
 										</div>
-										<button
-											class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-											Add to cart
-										</button>
+										<div id="addToCart">
+											<!-- <button
+												class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+												Add to cart
+											</button> -->
+										</div>
 									</div>
 								</div>
 							</div>
@@ -1373,6 +1380,8 @@
 		integrity="sha512-M3hN/6cva/SjwrOtyXeUa5IuCT0sedyfT+jK/OV+s+D0RnzrTfwjwJHhd+wYfMm9HJSrZ1IKksOdddLuN6KOzw=="
 		data-cf-beacon='{"rayId":"7ae44daf7f7a0955","version":"2023.3.0","b":1,"token":"cd0b4b3a733644fc843ef0b185f98241","si":100}'
 		crossorigin="anonymous"></script>
+
+	<script src="./js/product.js"></script>
 </body>
 
 <!-- Mirrored from preview.colorlib.com/theme/cozastore/product.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 27 Mar 2023 02:47:05 GMT -->
