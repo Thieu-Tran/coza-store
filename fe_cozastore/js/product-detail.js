@@ -221,22 +221,6 @@ $(document).ready(function () {
     // getAllColor -------------------------------------------------------------------------------------
 
 
-    // addToCart ---------------------------------------------------------------------------------------
-
-    let addToCartBtn = `
-    <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" onclick="addToCart(${id})">
-            Add to cart
-    </button>`
-    document.getElementById("addToCart").innerHTML = addToCartBtn
-
-    let addToCart = (id) => {
-        console.log(id)
-    }
-    window.addToCart = addToCart
-
-    // addToCart ---------------------------------------------------------------------------------------
-
-
     // Load product item ---------------------------------------------------------------------------------
 
     $.ajax({
@@ -391,6 +375,66 @@ $(document).ready(function () {
     window.handleFavorite = handleFavorite
     // handleFavorite ---------------------------------------------------------------------------------
 
+    // addToCart ---------------------------------------------------------------------------------------
+    let loadBtnCart = (idName) => {
+        let addToCartBtn = `
+        <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" onclick="addToCart(${id})">
+                Add to cart
+        </button>`
+        document.getElementById(idName).innerHTML = addToCartBtn
+    }
+    window.onload = loadBtnCart("addToCart")
+    window.onload = loadBtnCart("addToCart-2")
 
+    // xử lý button ADD TO CART
+    let addToCart = (id) => {
+        $.ajax({
+            url: baseURL + "/product/" + id,
+            method: "get",
+            headers: {
+                Authorization: "Bearer " + token,
+            }
+        }).done(function (result) {
+            let data = result.data
+
+            let modal = `
+            <div class="swal-overlay swal-overlay--show-modal" tabindex="-1">
+                <div class="swal-modal">
+                    <div class="swal-icon swal-icon--success">
+                        <span class="swal-icon--success__line swal-icon--success__line--long"></span>
+                        <span class="swal-icon--success__line swal-icon--success__line--tip"></span>
+    
+                        <div class="swal-icon--success__ring"></div>
+                        <div class="swal-icon--success__hide-corners"></div>
+                    </div>
+                    <div class="swal-title" style="">
+                        ${data.name.length < 25 ? data.name : data.name.slice(0, 25) + '...'}
+                    </div>
+                    <div class="swal-text" style="">is added to cart !</div>
+                    <div class="swal-footer">
+                        <div class="swal-button-container">
+                            <button class="swal-button swal-button--confirm" onclick="closeCart()">OK</button>
+                            <div class="swal-button__loader">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+    
+                        </div>
+                    </div>
+                </div>
+            </div>`
+            document.getElementById("modal-addToCart").innerHTML = modal
+        })
+    }
+    window.addToCart = addToCart
+    // addToCart ---------------------------------------------------------------------------------------
+
+    // closeCart ---------------------------------------------------------------------------------------
+    let closeCart = () => {
+        $('.swal-overlay').removeClass('swal-overlay--show-modal')
+    }
+    window.closeCart = closeCart
+    // closeCart ---------------------------------------------------------------------------------------
 
 })

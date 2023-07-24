@@ -72,15 +72,15 @@ $(document).ready(function () {
         }
         document.getElementById("category").innerHTML = categoryContent
 
-    // load lại script chuyển category
+        // load lại script chuyển category
         var isotopeButton = $('.filter-tope-group button');
 
-        $(isotopeButton).each(function(){
-            $(this).on('click', function(){
-                for(var i=0; i<isotopeButton.length; i++) {
+        $(isotopeButton).each(function () {
+            $(this).on('click', function () {
+                for (var i = 0; i < isotopeButton.length; i++) {
                     $(isotopeButton[i]).removeClass('how-active1');
                 }
-    
+
                 $(this).addClass('how-active1');
             });
         });
@@ -334,12 +334,6 @@ $(document).ready(function () {
 
     // getAllColor -------------------------------------------------------------------------------------
 
-    let addToCart = (id) => {
-
-        console.log(id)
-    }
-    window.addToCart = addToCart
-
 
     // show modal product detail ----------------------------------------------------------------------
     let modalProductDetail = (id) => {
@@ -372,24 +366,70 @@ $(document).ready(function () {
         });
 
         $('.js-addwish-detail').each(function () {
-			var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
+            var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
 
-			$(this).on('click', function () {
-				swal(nameProduct, "is added to wishlist !", "success");
+            $(this).on('click', function () {
+                swal(nameProduct, "is added to wishlist !", "success");
 
-				$(this).addClass('js-addedwish-detail');
-				$(this).off('click');
-			});
-		});
+                $(this).addClass('js-addedwish-detail');
+                $(this).off('click');
+            });
+        });
     }
     window.handleFavorite = handleFavorite
     // handleFavorite ---------------------------------------------------------------------------------
 
-    // test -------------------------------------------------------------------------------------------
+    
+    // addToCart ---------------------------------------------------------------------------------------
+    let addToCart = (id) => {
+        $.ajax({
+            url: baseURL + "/product/" + id,
+            method: "get",
+            headers: {
+                Authorization: "Bearer " + token,
+            }
+        }).done(function (result) {
+            let data = result.data
 
+            let modal = `
+            <div class="swal-overlay swal-overlay--show-modal" tabindex="-1">
+                <div class="swal-modal">
+                    <div class="swal-icon swal-icon--success">
+                        <span class="swal-icon--success__line swal-icon--success__line--long"></span>
+                        <span class="swal-icon--success__line swal-icon--success__line--tip"></span>
+    
+                        <div class="swal-icon--success__ring"></div>
+                        <div class="swal-icon--success__hide-corners"></div>
+                    </div>
+                    <div class="swal-title" style="">
+                        ${data.name.length<25?data.name:data.name.slice(0,25)+'...'}
+                    </div>
+                    <div class="swal-text" style="">is added to cart !</div>
+                    <div class="swal-footer">
+                        <div class="swal-button-container">
+                            <button class="swal-button swal-button--confirm" onclick="closeCart()">OK</button>
+                            <div class="swal-button__loader">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+    
+                        </div>
+                    </div>
+                </div>
+            </div>`
+            document.getElementById("modal-addToCart").innerHTML = modal
+        })
+    }
+    window.addToCart = addToCart
+    // addToCart ---------------------------------------------------------------------------------------
 
-
-    // test -------------------------------------------------------------------------------------------
+    // closeCart ---------------------------------------------------------------------------------------
+    let closeCart = () => {
+        $('.swal-overlay').removeClass('swal-overlay--show-modal')
+    }
+    window.closeCart = closeCart
+    // closeCart ---------------------------------------------------------------------------------------
 
 })
 
