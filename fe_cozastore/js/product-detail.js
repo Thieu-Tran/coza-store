@@ -1,9 +1,19 @@
 const baseURL = "http://localhost:8080"
 let token = localStorage.getItem("token")
 
+// Lấy dữ liệu từ url
 let queryString = window.location.search
 let id = new URLSearchParams(queryString).get("id")
 let categoryId = new URLSearchParams(queryString).get("category_id")
+
+let cartArr = []
+// lấy dữ liệu từ locaStorage
+let dataJson = localStorage.getItem("product-list")
+if (dataJson != null) {
+    cartArr = JSON.parse(dataJson)
+}
+// set lại giá trị của cart icon
+document.getElementById("product-notify").setAttribute('data-notify', cartArr.length)
 
 $(document).ready(function () {
 
@@ -334,19 +344,29 @@ $(document).ready(function () {
     // show modal product detail ----------------------------------------------------------------------
     let modalProductDetail = (id) => {
         $('.js-modal1').addClass('show-modal1');
+        $.ajax({
+            url: baseURL + "/product/" + id,
+            method: "get",
+            headers: {
+                Authorization: "Bearer " + token,
+            }
+        }).done(function (result) {
+            let data = result.data
 
-        productDetail(id)
-        getAllSize("product-size-2")
-        getAllColor("product-color-2")
+            productDetail(id)
+            getAllSize("product-size-2")
+            getAllColor("product-color-2")
 
-        let addToCartBtn = `
-            <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" onclick="addToCart(${id})">
-                    Add to cart
-            </button>`
+            let addToCartBtn = `
+                <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" onclick="addToCart(${data.id})">
+                        Add to cart
+                </button>`
 
-        document.getElementById("addToCart").innerHTML = addToCartBtn
+            document.getElementById("addToCart-2").innerHTML = addToCartBtn
+        })
     }
     window.modalProductDetail = modalProductDetail
+
 
     // handleFavorite ---------------------------------------------------------------------------------
 
@@ -384,7 +404,7 @@ $(document).ready(function () {
         document.getElementById(idName).innerHTML = addToCartBtn
     }
     window.onload = loadBtnCart("addToCart")
-    window.onload = loadBtnCart("addToCart-2")
+    // window.onload = loadBtnCart("addToCart-2")
 
     // xử lý button ADD TO CART
     let addToCart = (id) => {
@@ -396,6 +416,29 @@ $(document).ready(function () {
             }
         }).done(function (result) {
             let data = result.data
+
+            // Lấy số lượng mà user muốn mua
+            let quantity = Number(document.getElementById('product-quantity').value)
+            let quantity2 = Number(document.getElementById('product-quantity-2').value)
+            // xử lý phần addToCart ở modal(page có 2 button)
+            if (quantity2 != 1) {
+                quantity = quantity2
+            }
+            // Kiểm tra xem sản phẩm có tồn tại trong mảng hay chưa.
+            let index = cartArr.findIndex((item) => {
+                return item.id == id
+            })
+
+            if (index == -1) {
+                // index = -1 (sản phẩm chưa có trong mảng), thêm dữ liệu vào mảng
+                cartArr.push({ id: id, name: data.name, image: data.image, price: data.price, quantity: quantity })
+            } else {
+                // Đã tồn tại thì tăng số lượng sản phẩm đó lên.
+                cartArr[index].quantity += quantity
+            }
+            // Lưu vào localStorage
+            localStorage.setItem("product-list", JSON.stringify(cartArr))
+            document.getElementById("product-notify").setAttribute('data-notify', cartArr.length)
 
             let modal = `
             <div class="swal-overlay swal-overlay--show-modal" tabindex="-1">
@@ -429,6 +472,55 @@ $(document).ready(function () {
     }
     window.addToCart = addToCart
     // addToCart ---------------------------------------------------------------------------------------
+
+    // Side bar ----------------------------------------------------------------------------------------
+    let sideBar = () => {
+        let priceTotal = 0
+        let sideBarItem = ''
+        cartArr.map((item) => {
+            priceTotal += item.quantity * item.price
+            sideBarItem += `
+            <li class="header-cart-item flex-w flex-t m-b-12">
+                <div class="header-cart-item-img">
+                    <img src="images/${item.image}" alt="IMG" style="height:70px;object-fit:cover">
+                </div>
+                <div class="header-cart-item-txt p-t-8">
+                    <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+                        ${item.name.length < 25 ? item.name : item.name.slice(0, 25) + '...'}
+                    </a>
+                    <span class="header-cart-item-info">
+                        ${item.quantity} x $${item.price}
+                    </span>
+                </div>
+            </li>
+            `
+        })
+
+        let sideBarContent = `
+        <ul class="header-cart-wrapitem w-full">
+            ${sideBarItem}
+        </ul>
+        <div class="w-full">
+            <div class="header-cart-total w-full p-tb-40">
+                Total:  $ ${priceTotal.toFixed(2)}
+            </div>
+            <div class="header-cart-buttons flex-w w-full">
+                <a href="shoping-cart.html"
+                    class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+                    View Cart
+                </a>
+                <a href="shoping-cart.html"
+                    class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
+                    Check Out
+                </a>
+            </div>
+        </div>
+        `
+        document.getElementById("side-bar").innerHTML = sideBarContent
+    }
+    window.sideBar = sideBar
+    // Side bar ----------------------------------------------------------------------------------------
+
 
     // closeCart ---------------------------------------------------------------------------------------
     let closeCart = () => {
