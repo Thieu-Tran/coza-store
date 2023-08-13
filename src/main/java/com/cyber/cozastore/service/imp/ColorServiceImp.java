@@ -8,4 +8,5 @@ import java.util.List;
 @Service
 public interface ColorServiceImp {
     List<ColorResponse> getAllColor();
+    List<ColorResponse> getColorByProductName(String name);
 }

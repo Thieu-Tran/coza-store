@@ -31,4 +31,22 @@ public class ColorService implements ColorServiceImp {
 
         return responseList;
     }
+
+    @Override
+    public List<ColorResponse> getColorByProductName(String name) {
+        List<ColorEntity> list = colorRepository.getColorByProductName(name);
+        List<ColorResponse> responseList = new ArrayList<>();
+
+        for (ColorEntity data :list) {
+            ColorResponse response = new ColorResponse();
+            response.setId(data.getId());
+            response.setName(data.getName());
+
+            responseList.add(response);
+        }
+
+        return responseList;
+    }
+
+
 }
