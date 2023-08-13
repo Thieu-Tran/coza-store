@@ -1,5 +1,7 @@
 package com.cyber.cozastore.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -11,7 +13,8 @@ public class OrderEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "date")
+    @Column(name = "create_date")
+    @CreationTimestamp
     private Date date;
 
     @OneToMany(mappedBy = "order")

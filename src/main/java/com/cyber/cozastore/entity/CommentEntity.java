@@ -1,5 +1,9 @@
 package com.cyber.cozastore.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.context.annotation.Lazy;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -14,6 +18,7 @@ public class CommentEntity {
     private String comment;
 
     @Column(name = "create_date")
+    @CreationTimestamp
     private Date createDate;
 
     @Column(name = "name")

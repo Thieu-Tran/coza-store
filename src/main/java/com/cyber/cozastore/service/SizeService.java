@@ -31,4 +31,22 @@ public class SizeService implements SizeServiceImp {
 
         return responseList;
     }
+
+    @Override
+    public List<SizeResponse> getSizeByProductName(String name) {
+        List<SizeEntity> list = sizeRepository.getSizeByProductName(name);
+        List<SizeResponse> responseList = new ArrayList<>();
+
+        for (SizeEntity data: list) {
+            SizeResponse sizeResponse = new SizeResponse();
+            sizeResponse.setId(data.getId());
+            sizeResponse.setName(data.getName());
+
+            responseList.add(sizeResponse);
+        }
+
+        return responseList;
+    }
+
+
 }

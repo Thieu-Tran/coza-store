@@ -8,4 +8,5 @@ import java.util.List;
 @Service
 public interface SizeServiceImp {
     List<SizeResponse> getAllSize();
+    List<SizeResponse> getSizeByProductName(String name);
 }
